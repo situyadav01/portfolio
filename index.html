@@ -4,6 +4,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Situ Kumar - Full Stack Developer and AI learner building modern web applications."
+    />
+    <meta name="theme-color" content="#020617" />
 
     <title>Situ Kumar | Full Stack Developer</title>
 
@@ -31,17 +36,17 @@
       href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
     />
 
-    <!-- Confetti library for celebration effect -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"
-      defer
-    ></script>
     <!-- Our JavaScript for animations -->
     <script src="first.js" defer></script>
+    <!-- Confetti is optional; load async so it never blocks page logic -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"
+      async
+    ></script>
   </head>
 
   <!-- Body: The main content of the website -->
-  <body>
+  <body class="welcome-active">
     <!-- Navigation bar -->
     <nav>
       <h2 class="logo">Situ Kumar</h2>
@@ -74,8 +79,8 @@
           <h2 id="typing">Full Stack Developer | AI Learner</h2>
           <!-- Action buttons -->
           <div class="hero-buttons">
-            <a href="#about" class="btn-primary">
-              <i class="fas fa-user"></i>About Me
+            <a href="#projects" class="btn-primary" id="launchProjectsBtn">
+              <i class="fas fa-rocket"></i>View Projects
             </a>
             <a href="#contact" class="btn-secondary">
               <i class="fas fa-envelope"></i>Get In Touch
@@ -306,38 +311,16 @@
     <!-- Projects section -->
     <section id="projects">
       <h2>Projects</h2>
-      <div class="projects project-grid">
-        <article class="project-card">
-          <div class="project-card-top">
-            <span class="project-badge">Mini Game</span>
-            <h3>Tic Tac Toe</h3>
-            <p>
-              A clean two-player browser game with score tracking, winner
-              detection, and instant restart.
-            </p>
+      <div class="projects">
+        <div class="coming-soon">
+          <h3>Coming Soon</h3>
+          <div class="dots">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
           </div>
-          <div class="project-stack">
-            <span>HTML</span>
-            <span>CSS</span>
-            <span>JavaScript</span>
-          </div>
-          <div class="project-actions">
-            <a href="tictactoe.html" class="btn-primary">Live Demo</a>
-            <a
-              href="https://github.com/situyadav01"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn-secondary"
-            >
-              GitHub
-            </a>
-          </div>
-        </article>
-        <div class="project-note">
-          <h3>More Projects Coming</h3>
           <p>
-            This section is now ready for your next builds like weather app,
-            portfolio dashboard, or a MERN full-stack project.
+            Exciting projects are on the way! Stay tuned for innovative web solutions.
           </p>
         </div>
       </div>
@@ -401,10 +384,10 @@
       <!-- Copyright notice -->
       <div class="copyright">
         <p class="copyright-text">
-          <span class="copyright-symbol">©</span>
+          <span class="copyright-symbol">&copy;</span>
           <span class="copyright-year">2026</span>
           <span class="copyright-name">Situ Kumar</span>
-          <span class="copyright-divider">•</span>
+          <span class="copyright-divider">&bull;</span>
           <span class="copyright-rights">All Rights Reserved</span>
         </p>
         <p class="copyright-tagline">
@@ -412,5 +395,11 @@
         </p>
       </div>
     </footer>
+
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
   </body>
 </html>
+
+
