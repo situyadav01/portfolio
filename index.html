@@ -1,233 +1,416 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<!-- Head section: This part sets up the page basics -->
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Head section: This part sets up the page basics -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>Situ Kumar | Full Stack Developer</title>
+    <title>Situ Kumar | Full Stack Developer</title>
 
-<!-- Google Fonts: Loads nice fonts for the text -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" crossorigin>
+    <!-- Google Fonts: Loads nice fonts for the text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+      crossorigin
+    />
 
-<!-- Our custom styles -->
-<link rel="stylesheet" href="style.css">
-<!-- Our JavaScript for animations -->
-<script src="first.js"></script>
+    <!-- Our custom styles -->
+    <link rel="stylesheet" href="style.css" />
 
-<!-- Font Awesome: Icons like user, envelope, etc. -->
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Font Awesome: Icons like user, envelope, etc. -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
 
-<!-- Particles.js: Creates the moving background dots -->
-<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+    <!-- Devicon: Professional skill logos -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+    />
 
-</head>
+    <!-- Confetti library for celebration effect -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"
+      defer
+    ></script>
+    <!-- Our JavaScript for animations -->
+    <script src="first.js" defer></script>
+  </head>
 
-<!-- Body: The main content of the website -->
-<body>
+  <!-- Body: The main content of the website -->
+  <body>
+    <!-- Navigation bar -->
+    <nav>
+      <h2 class="logo">Situ Kumar</h2>
 
-<!-- Background animation with moving particles -->
-<div id="particles-js"></div>
+      <!-- Menu links to different sections -->
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
 
-<!-- Navigation bar -->
-<nav>
+    <!-- Welcome section: Brief introduction -->
+    <section id="welcome" class="welcome">
+      <div class="welcome-content">
+        <h1>Welcome to My Portfolio</h1>
+        <p>Explore my journey as a Full Stack Developer and AI Enthusiast</p>
+        <a href="#home" class="welcome-btn">Get Started</a>
+      </div>
+    </section>
 
-<h2 class="logo">Situ Kumar</h2>
+    <!-- Home section: Welcome and introduction -->
+    <section id="home" class="hero">
+      <div class="hero-content">
+        <div class="hero-text">
+          <!-- Main heading with name -->
+          <h1>Hi, I'm <span>Situ Kumar</span></h1>
+          <h2 id="typing">Full Stack Developer | AI Learner</h2>
+          <!-- Action buttons -->
+          <div class="hero-buttons">
+            <a href="#about" class="btn-primary">
+              <i class="fas fa-user"></i>About Me
+            </a>
+            <a href="#contact" class="btn-secondary">
+              <i class="fas fa-envelope"></i>Get In Touch
+            </a>
+            <a href="#" class="btn-outline">
+              <i class="fas fa-download"></i>Download CV
+            </a>
+          </div>
+        </div>
 
-<!-- Menu links to different sections -->
-<ul>
-<li><a href="#home">Home</a></li>
-<li><a href="#about">About</a></li>
-<li><a href="#skills">Skills</a></li>
-<li><a href="#projects">Projects</a></li>
-<li><a href="#contact">Contact</a></li>
-</ul>
-</nav>
+        <!-- Inspirational Quote -->
+        <div class="inspirational-quote">
+          <div class="quote-container">
+            <p class="quote-text">
+              "where logic meets allegiance i craft the future through code"
+            </p>
+            <p class="quote-author">
+              by <span class="author-name">situcodex_</span>
+            </p>
+          </div>
+        </div>
 
-<!-- Home section: Welcome and introduction -->
-<section id="home" class="hero">
+        <!-- Profile image area (currently using icon) -->
+        <div class="hero-image">
+          <div class="profile-container">
+            <div class="profile-image">
+              <!-- Replace with your actual photo -->
+              <i class="fas fa-user-circle"></i>
+            </div>
+            <div class="profile-glow"></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<div class="hero-content">
-<div class="hero-text">
-<!-- Main heading with name -->
-<h1>Hi, I'm <span>Situ Kumar</span></h1>
-<!-- Typing animation text -->
-<h2 id="typing"></h2>
-<!-- Action buttons -->
-<div class="hero-buttons">
-<a href="#about" class="btn-primary">
-<i class="fas fa-user"></i>About Me
-</a>
-<a href="#contact" class="btn-secondary">
-<i class="fas fa-envelope"></i>Get In Touch
-</a>
-<a href="#" class="btn-outline">
-<i class="fas fa-download"></i>Download CV
-</a>
-</div>
-</div>
+    <!-- About section with personal information -->
+    <section id="about" class="about">
+      <div class="about-container">
+        <!-- Left side: About text and heading -->
+        <div class="about-text">
+          <h2>About Me</h2>
 
-<!-- Inspirational Quote -->
-<div class="inspirational-quote">
-<div class="quote-container">
-<p class="quote-text">
-"where logic meets allegiance i craft the future through code"
-</p>
-<p class="quote-author">by <span class="author-name">situcodex_</span></p>
-</div>
-</div>
+          <p id="about-p1"></p>
 
-<!-- Profile image area (currently using icon) -->
-<div class="hero-image">
-<div class="profile-container">
-<div class="profile-image">
-<!-- Replace with your actual photo -->
-<i class="fas fa-user-circle"></i>
-</div>
-<div class="profile-glow"></div>
-</div>
-</div>
-</div>
+          <p id="about-p2"></p>
+        </div>
 
-</section>
+        <!-- Right side: Info cards -->
+        <div class="about-box">
+          <!-- Education card -->
+          <div class="box">
+            <h3>Education</h3>
+            <p>GEC West Champaran(2k25-29 Batch)</p>
+          </div>
 
-<!-- About section with personal information -->
-<section id="about" class="about">
+          <!-- Branch/Specialization card -->
+          <div class="box">
+            <h3>Branch</h3>
+            <p>Electronics & Communication</p>
+          </div>
 
-<div class="about-container">
+          <!-- Goals card -->
+          <div class="box">
+            <h3>Goal</h3>
+            <p>Full Stack Developer | AI Enthusiast</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<!-- Left side: About text and heading -->
-<div class="about-text">
-<h2>About Me</h2>
+    <!-- Skills section displaying programming skills -->
+    <section id="skills">
+      <h2>Skills</h2>
 
-<p id="about-p1"></p>
+      <!-- Frontend Skills Box -->
+      <div class="skills-box">
+        <h3 class="skills-category">Frontend</h3>
+        <div class="skills">
+          <!-- Each card shows an icon and skill name -->
+          <a
+            href="https://www.w3.org/html/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card"
+            title="Learn more about HTML"
+          >
+            <i class="devicon-html5-plain"></i>
+            <span>HTML</span>
+          </a>
+          <a
+            href="https://www.w3.org/Style/CSS/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card"
+            title="Learn more about CSS"
+          >
+            <i class="devicon-css3-plain"></i>
+            <span>CSS</span>
+          </a>
+          <a
+            href="https://www.javascript.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card"
+            title="Learn more about JavaScript"
+          >
+            <i class="devicon-javascript-plain"></i>
+            <span>JavaScript</span>
+          </a>
+          <a
+            href="https://react.dev/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card"
+            title="Learn more about React"
+          >
+            <i class="devicon-react-plain"></i>
+            <span>React</span>
+          </a>
+          <a
+            href="https://redux.js.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card"
+            title="Learn more about Redux"
+          >
+            <i class="devicon-redux-plain"></i>
+            <span>Redux</span>
+          </a>
+        </div>
+      </div>
 
-<p id="about-p2"></p>
+      <!-- Backend Skills Box -->
+      <div class="skills-box">
+        <h3 class="skills-category">Backend</h3>
+        <div class="skills">
+          <a
+            href="https://nodejs.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card"
+            title="Learn more about Node.js"
+          >
+            <i class="fab fa-node"></i>
+            <span>Node.js</span>
+          </a>
+          <a
+            href="https://expressjs.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card"
+            title="Learn more about Express"
+          >
+            <i class="fas fa-server"></i>
+            <span>Express</span>
+          </a>
+          <a
+            href="https://www.mongodb.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card"
+            title="Learn more about MongoDB"
+          >
+            <i class="fas fa-database"></i>
+            <span>MongoDB</span>
+          </a>
+          <a
+            href="https://restfulapi.net/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card"
+            title="Learn more about REST API"
+          >
+            <i class="fas fa-leaf"></i>
+            <span>REST API</span>
+          </a>
+        </div>
+      </div>
 
-</div>
+      <!-- Programming Languages Box -->
+      <div class="skills-box">
+        <h3 class="skills-category">Languages</h3>
+        <div class="skills">
+          <a
+            href="https://en.cppreference.com/w/c"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card"
+            title="Learn more about C"
+          >
+            <i class="devicon-c-plain"></i>
+            <span>C</span>
+          </a>
+          <a
+            href="https://cplusplus.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card"
+            title="Learn more about C++"
+          >
+            <i class="devicon-cplusplus-plain"></i>
+            <span>C++</span>
+          </a>
+          <a
+            href="https://www.python.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card"
+            title="Learn more about Python"
+          >
+            <i class="devicon-python-plain"></i>
+            <span>Python</span>
+          </a>
+          <a
+            href="https://www.java.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card"
+            title="Learn more about Java"
+          >
+            <i class="devicon-java-plain"></i>
+            <span>Java</span>
+          </a>
+        </div>
+      </div>
+    </section>
 
-<!-- Right side: Info cards -->
-<div class="about-box">
-<!-- Education card -->
-<div class="box">
-<h3>Education</h3>
-<p>GEC West Champaran(2k25-29 Batch)</p>
-</div>
+    <!-- Projects section -->
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="projects project-grid">
+        <article class="project-card">
+          <div class="project-card-top">
+            <span class="project-badge">Mini Game</span>
+            <h3>Tic Tac Toe</h3>
+            <p>
+              A clean two-player browser game with score tracking, winner
+              detection, and instant restart.
+            </p>
+          </div>
+          <div class="project-stack">
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+          </div>
+          <div class="project-actions">
+            <a href="tictactoe.html" class="btn-primary">Live Demo</a>
+            <a
+              href="https://github.com/situyadav01"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-secondary"
+            >
+              GitHub
+            </a>
+          </div>
+        </article>
+        <div class="project-note">
+          <h3>More Projects Coming</h3>
+          <p>
+            This section is now ready for your next builds like weather app,
+            portfolio dashboard, or a MERN full-stack project.
+          </p>
+        </div>
+      </div>
+    </section>
 
-<!-- Branch/Specialization card -->
-<div class="box">
-<h3>Branch</h3>
-<p>Electronics & Communication</p>
-</div>
+    <!-- Footer section with contact information and social links -->
+    <footer id="contact">
+      <h2>Connect With Me</h2>
 
-<!-- Goals card -->
-<div class="box">
-<h3>Goal</h3>
-<p>Full Stack Developer | AI Enthusiast</p>
-</div>
+      <!-- Contact methods -->
+      <div class="contact-methods">
+        <a
+          href="mailto:situkumaryadav638@gmail.com"
+          class="contact-link email-link"
+          title="Send me an email"
+        >
+          <i class="fas fa-envelope"></i>
+          <span>situkumaryadav638@gmail.com</span>
+        </a>
+      </div>
 
-</div>
+      <!-- Social media links -->
+      <div class="social">
+        <a
+          href="https://www.instagram.com/c2ydv0x_"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Follow me on Instagram"
+        >
+          <i class="fa-brands fa-instagram"></i>
+        </a>
 
-</div>
+        <a
+          href="https://www.linkedin.com/in/situ-kumar-064770385"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Connect on LinkedIn"
+        >
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
 
-</section>
+        <a
+          href="https://github.com/situyadav01"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="View my GitHub"
+        >
+          <i class="fa-brands fa-github"></i>
+        </a>
 
-<!-- Skills section displaying programming skills -->
-<section id="skills">
-<h2>Skills</h2>
-<div class="skills">
-<!-- Each card shows an icon and skill name -->
-<div class="card">
-<i class="fas fa-code"></i>
-<span>C</span>
-</div>
-<div class="card">
-<i class="fas fa-code-branch"></i>
-<span>C++</span>
-</div>
-<div class="card">
-<i class="fab fa-python"></i>
-<span>Python</span>
-</div>
-<div class="card">
-<i class="fab fa-java"></i>
-<span>Java</span>
-</div>
-<div class="card">
-<i class="fab fa-html5"></i>
-<span>HTML</span>
-</div>
-<div class="card">
-<i class="fab fa-css3-alt"></i>
-<span>CSS</span>
-</div>
-<div class="card">
-<i class="fab fa-js"></i>
-<span>JavaScript</span>
-</div>
-</div>
-</section>
+        <a
+          href="https://wa.me/917256056072"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Message me on WhatsApp"
+        >
+          <i class="fa-brands fa-whatsapp"></i>
+        </a>
+      </div>
 
-<!-- Projects section (placeholder for future projects) -->
-<section id="projects">
-<h2>Projects</h2>
-<div class="projects">
-<div class="coming-soon">
-<h3>Coming Soon</h3>
-<div class="dots">
-<span class="dot"></span>
-<span class="dot"></span>
-<span class="dot"></span>
-</div>
-<p>Exciting projects are on the way!</p>
-</div>
-</div>
-</section>
-
-<!-- Footer section with contact information and social links -->
-<footer id="contact">
-
-
-<h2>Connect With Me</h2>
-
-<!-- Contact methods -->
-<div class="contact-methods">
-<a href="mailto:situkumaryadav638@gmail.com" class="contact-link">
-<i class="fas fa-envelope"></i>
-<span>situkumaryadav638@gmail.com</span>
-</a>
-</div>
-
-<!-- Social media links -->
-<div class="social">
-
-<a href="https://www.instagram.com/c2ydv0x_" target="_blank">
-<i class="fa-brands fa-instagram"></i>
-</a>
-
-<a href="https://www.linkedin.com/in/situ-kumar-064770385" target="_blank">
-<i class="fa-brands fa-linkedin"></i>
-</a>
-
-<a href="https://github.com/situyadav01" target="_blank">
-<i class="fa-brands fa-github"></i>
-</a>
-
-<a href="https://wa.me/917256056072" target="_blank">
-<i class="fa-brands fa-whatsapp"></i>
-</a>
-
-</div>
-
-<!-- Copyright notice -->
-<p class="copyright">
-© 2026 Situ Kumar | All Rights Reserved
-</p>
-
-</footer>
-
-</body>
+      <!-- Copyright notice -->
+      <div class="copyright">
+        <p class="copyright-text">
+          <span class="copyright-symbol">©</span>
+          <span class="copyright-year">2026</span>
+          <span class="copyright-name">Situ Kumar</span>
+          <span class="copyright-divider">•</span>
+          <span class="copyright-rights">All Rights Reserved</span>
+        </p>
+        <p class="copyright-tagline">
+          <i class="fas fa-code"></i> Crafted with passion and code
+        </p>
+      </div>
+    </footer>
+  </body>
 </html>
