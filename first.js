@@ -1,38 +1,63 @@
-// ===== TYPING ANIMATION FOR ABOUT SECTION =====
-// Array of paragraphs for the about section
+// ===== HERO TYPING ANIMATION =====
+const typingTarget = document.getElementById("typing");
+const typingTexts = [
+  "Full Stack Developer",
+  "AI Learner",
+  "Programmer",
+];
+let typingTextIndex = 0;
+let typingCharIndex = 0;
+let isDeletingText = false;
+
+function typeHeroText() {
+  if (!typingTarget) return;
+
+  const currentText = typingTexts[typingTextIndex];
+
+  if (isDeletingText) {
+    typingCharIndex--;
+  } else {
+    typingCharIndex++;
+  }
+
+  typingTarget.textContent = currentText.substring(0, typingCharIndex);
+
+  let nextDelay = isDeletingText ? 70 : 110;
+
+  if (!isDeletingText && typingCharIndex === currentText.length) {
+    nextDelay = 1400;
+    isDeletingText = true;
+  } else if (isDeletingText && typingCharIndex === 0) {
+    isDeletingText = false;
+    typingTextIndex = (typingTextIndex + 1) % typingTexts.length;
+    nextDelay = 450;
+  }
+
+  setTimeout(typeHeroText, nextDelay);
+}
+
+typeHeroText();
+
+// ===== ABOUT SECTION CONTENT =====
 const aboutTexts = [
   "I'm <span>Situ Kumar</span>, a passionate Full Stack Developer and AI enthusiast from GEC West Champaran. With a background in Electronics & Communication, I bridge hardware knowledge with modern web development to create innovative solutions.",
-  "My journey is driven by curiosity and a passion for building scalable applications. I specialize in the MERN stack (MongoDB, Express, React, Node.js) and am continuously expanding my expertise in AI/ML technologies. I believe in clean code, user-centered design, and solving real-world problems through technology.",
+  "My journey is driven by curiosity and a passion for building scalable applications.  I am continuously expanding my expertise in AI/ML technologies. I believe in clean code, user-centered design, and solving real-world problems through technology.",
 ];
-let aboutIndex = 0; // Index for current about paragraph
-let aboutCharIndex = 0; // Index for current character in about text
 
-// Function to handle about section typing animation
-function typeAbout() {
-  const aboutCurrent = aboutTexts[aboutIndex]; // Get current about text
-  const target = document.getElementById("about-p" + (aboutIndex + 1));
-  if (!target) return;
+function renderAboutSection() {
+  const aboutParagraphOne = document.getElementById("about-p1");
+  const aboutParagraphTwo = document.getElementById("about-p2");
 
-  // Typing phase for about text
-  target.innerHTML = aboutCurrent.substring(0, aboutCharIndex++); // Show text up to current character
+  if (aboutParagraphOne) {
+    aboutParagraphOne.innerHTML = aboutTexts[0];
+  }
 
-  if (aboutCharIndex <= aboutCurrent.length) {
-    setTimeout(typeAbout, 30); // Call function again after 30ms (faster typing)
-  } else {
-    // Finished typing current paragraph, move to next
-    aboutIndex++; // Move to next paragraph
-    aboutCharIndex = 0; // Reset character index
-    if (aboutIndex < aboutTexts.length) {
-      setTimeout(typeAbout, 500); // Wait 0.5 seconds before starting next paragraph
-    }
-    // If all paragraphs are done, stop
+  if (aboutParagraphTwo) {
+    aboutParagraphTwo.innerHTML = aboutTexts[1];
   }
 }
 
-// Start about typing animation after hero typing finishes (4 second delay)
-setTimeout(() => {
-  typeAbout();
-}, 4000);
+renderAboutSection();
 
 // Hide the welcome section after entering the site once.
 const welcomeSection = document.getElementById("welcome");
@@ -54,46 +79,16 @@ function enterSite() {
   isEnteringSite = true;
 
   document.body.classList.remove("welcome-active");
-  welcomeSection.classList.add("welcome-exiting");
-  scrollToHomeSafely();
-
-  // Start raining after smooth scroll begins.
-  setTimeout(() => {
-    if (typeof confetti === "function") {
-      const end = Date.now() + 2000;
-
-      (function rainConfetti() {
-        confetti({
-          particleCount: 10,
-          angle: 90,
-          spread: 180,
-          startVelocity: 22,
-          ticks: 170,
-          origin: { x: Math.random(), y: -0.08 },
-          scalar: 0.9,
-          colors: [
-            "#38bdf8",
-            "#06b6d4",
-            "#f97316",
-            "#facc15",
-            "#a855f7",
-            "#22c55e",
-            "#fb7185",
-          ],
-        });
-
-        if (Date.now() < end) {
-          requestAnimationFrame(rainConfetti);
-        }
-      })();
-    }
-  }, 450);
+  requestAnimationFrame(() => {
+    welcomeSection.classList.add("welcome-exiting");
+    scrollToHomeSafely();
+  });
 
   setTimeout(() => {
     welcomeSection.classList.remove("welcome-exiting");
     welcomeSection.classList.add("welcome-hidden");
     isEnteringSite = false;
-  }, 760);
+  }, 1150);
 }
 
 if (welcomeButton) {
@@ -172,96 +167,72 @@ toggleBackToTop();
 window.addEventListener("scroll", updateActiveNavLink);
 window.addEventListener("scroll", toggleBackToTop);
 
-// ===== ROCKET LAUNCH TO PROJECTS =====
-const launchProjectsBtn = document.getElementById("launchProjectsBtn");
-const projectsSection = document.getElementById("projects");
-let rocketIsLaunching = false;
+// ===== FEEDBACK FORM =====
+const feedbackForm = document.getElementById("feedbackForm");
+const feedbackResponse = document.getElementById("feedbackResponse");
+const ratingStatus = document.getElementById("ratingStatus");
+const ratingInputs = document.querySelectorAll('input[name="portfolioRating"]');
 
-function createFuelParticle(x, y) {
-  const fuel = document.createElement("span");
-  fuel.className = "rocket-fuel";
-  fuel.style.left = `${x}px`;
-  fuel.style.top = `${y}px`;
-  document.body.appendChild(fuel);
+function updateRatingStatus() {
+  if (!ratingStatus) return;
 
-  const offsetX = (Math.random() - 0.5) * 24;
-  const offsetY = 30 + Math.random() * 36;
-  const scale = 0.3 + Math.random() * 0.7;
-
-  fuel.animate(
-    [
-      { transform: "translate(-50%, -50%) scale(1)", opacity: 0.95 },
-      {
-        transform: `translate(${offsetX}px, ${offsetY}px) scale(${scale})`,
-        opacity: 0,
-      },
-    ],
-    {
-      duration: 650,
-      easing: "cubic-bezier(0.2, 0.7, 0.2, 1)",
-      fill: "forwards",
-    },
+  const selectedRating = document.querySelector(
+    'input[name="portfolioRating"]:checked',
   );
 
-  setTimeout(() => fuel.remove(), 700);
+  if (!selectedRating) {
+    ratingStatus.textContent = "No rating selected yet.";
+    return;
+  }
+
+  ratingStatus.textContent = `You selected ${selectedRating.value} out of 5 stars.`;
 }
 
-function launchRocket(event) {
-  event.preventDefault();
-  if (rocketIsLaunching || !projectsSection) return;
+ratingInputs.forEach((input) => {
+  input.addEventListener("change", updateRatingStatus);
+});
 
-  rocketIsLaunching = true;
-  const rect = launchProjectsBtn.getBoundingClientRect();
-  const startX = rect.left + rect.width / 2;
-  const startY = rect.top + rect.height / 2;
-  const endX = window.innerWidth + 120;
-  const endY = -120;
-  const duration = 1450;
+if (feedbackForm) {
+  feedbackForm.addEventListener("submit", (event) => {
+    event.preventDefault();
 
-  const rocket = document.createElement("div");
-  rocket.className = "rocket-launch";
-  rocket.innerHTML = '<i class="fas fa-rocket"></i>';
-  rocket.style.left = `${startX}px`;
-  rocket.style.top = `${startY}px`;
-  rocket.style.transform = "translate(-50%, -50%) rotate(-40deg)";
-  document.body.appendChild(rocket);
+    const formData = new FormData(feedbackForm);
+    const name = (formData.get("feedbackName") || "").toString().trim();
+    const message = (formData.get("feedbackMessage") || "").toString().trim();
+    const rating = formData.get("portfolioRating");
 
-  let startTime = null;
-  let lastFuelAt = 0;
-
-  function animateRocket(timestamp) {
-    if (!startTime) startTime = timestamp;
-    const elapsed = timestamp - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
-
-    const currentX = startX + (endX - startX) * eased;
-    const currentY = startY + (endY - startY) * eased;
-
-    rocket.style.left = `${currentX}px`;
-    rocket.style.top = `${currentY}px`;
-    rocket.style.transform = `translate(-50%, -50%) rotate(${-42 + eased * 28}deg) scale(${1 + eased * 0.12})`;
-
-    if (timestamp - lastFuelAt > 35) {
-      createFuelParticle(currentX - 14, currentY + 14);
-      lastFuelAt = timestamp;
-    }
-
-    if (progress < 1) {
-      requestAnimationFrame(animateRocket);
+    if (!rating) {
+      if (feedbackResponse) {
+        feedbackResponse.textContent = "Please choose a star rating before sending feedback.";
+      }
       return;
     }
 
-    setTimeout(() => rocket.remove(), 120);
-    projectsSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    setTimeout(() => {
-      rocketIsLaunching = false;
-    }, 300);
-  }
+    const safeName = name || "there";
+    const messageSummary =
+      message.length > 0
+        ? " Your response has been noted for future improvements."
+        : " Thanks for rating the portfolio.";
 
-  requestAnimationFrame(animateRocket);
-}
+    if (feedbackResponse) {
+      feedbackResponse.textContent = `Thank you, ${safeName}. You rated this portfolio ${rating}/5.${messageSummary}`;
+    }
 
-if (launchProjectsBtn) {
-  launchProjectsBtn.addEventListener("click", launchRocket);
+    try {
+      localStorage.setItem(
+        "portfolioFeedbackDraft",
+        JSON.stringify({
+          name,
+          rating,
+          message,
+          submittedAt: new Date().toISOString(),
+        }),
+      );
+    } catch (error) {
+      // Ignore storage issues so the UI still works normally.
+    }
+
+    feedbackForm.reset();
+    updateRatingStatus();
+  });
 }
