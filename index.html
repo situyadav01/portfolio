@@ -38,11 +38,6 @@
 
     <!-- Our JavaScript for animations -->
     <script src="first.js" defer></script>
-    <!-- Confetti is optional; load async so it never blocks page logic -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"
-      async
-    ></script>
   </head>
 
   <!-- Body: The main content of the website -->
@@ -57,6 +52,7 @@
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#projects">Projects</a></li>
+        <li><a href="#feedback">Feedback</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
@@ -64,9 +60,22 @@
     <!-- Welcome section: Brief introduction -->
     <section id="welcome" class="welcome">
       <div class="welcome-content">
-        <h1>Welcome to My Portfolio</h1>
-        <p>Explore my journey as a Full Stack Developer and AI Enthusiast</p>
-        <a href="#home" class="welcome-btn">Get Started</a>
+        <span class="welcome-eyebrow">Portfolio Experience</span>
+        <h1>Welcome to the digital portfolio of Situ Kumar</h1>
+        <p>
+          Full Stack Developer focused on building modern, reliable, and
+          user-friendly web experiences with a growing passion for AI-powered
+          solutions.
+        </p>
+        <div class="welcome-highlights" aria-label="Professional highlights">
+          <span>Modern Web Development</span>
+          <span>Clean UI Thinking</span>
+          <span>AI Learning Journey</span>
+        </div>
+        <a href="#home" class="welcome-btn">
+          <span>Start Exploring</span>
+          <i class="fas fa-arrow-right" aria-hidden="true"></i>
+        </a>
       </div>
     </section>
 
@@ -79,14 +88,11 @@
           <h2 id="typing">Full Stack Developer | AI Learner</h2>
           <!-- Action buttons -->
           <div class="hero-buttons">
-            <a href="#projects" class="btn-primary" id="launchProjectsBtn">
+            <a href="#projects" class="btn-primary">
               <i class="fas fa-rocket"></i>View Projects
             </a>
             <a href="#contact" class="btn-secondary">
               <i class="fas fa-envelope"></i>Get In Touch
-            </a>
-            <a href="#" class="btn-outline">
-              <i class="fas fa-download"></i>Download CV
             </a>
           </div>
         </div>
@@ -95,7 +101,10 @@
         <div class="inspirational-quote">
           <div class="quote-container">
             <p class="quote-text">
-              "where logic meets allegiance i craft the future through code"
+              <span class="quote-primary"
+                >"where logic meets allegiance i craft</span
+              >
+              <span class="quote-secondary">the future through code"</span>
             </p>
             <p class="quote-author">
               by <span class="author-name">situcodex_</span>
@@ -107,10 +116,14 @@
         <div class="hero-image">
           <div class="profile-container">
             <div class="profile-image">
-              <!-- Replace with your actual photo -->
-              <i class="fas fa-user-circle"></i>
+              <img
+                src="profile.jpeg"
+                alt="Portrait of Situ Kumar"
+                class="profile-photo"
+              />
             </div>
             <div class="profile-glow"></div>
+            <p class="profile-note">Built with discipline and direction</p>
           </div>
         </div>
       </div>
@@ -121,7 +134,10 @@
       <div class="about-container">
         <!-- Left side: About text and heading -->
         <div class="about-text">
-          <h2>About Me</h2>
+          <h2>
+            <span class="heading-first">About</span>
+            <span class="heading-second">Me</span>
+          </h2>
 
           <p id="about-p1"></p>
 
@@ -145,7 +161,7 @@
           <!-- Goals card -->
           <div class="box">
             <h3>Goal</h3>
-            <p>Full Stack Developer | AI Enthusiast</p>
+            <p>Full Stack Developer | AI Enthusiast | Aspiring Startup Founder</p>
           </div>
         </div>
       </div>
@@ -153,7 +169,10 @@
 
     <!-- Skills section displaying programming skills -->
     <section id="skills">
-      <h2>Skills</h2>
+      <h2>
+        <span class="heading-first">Ski</span
+        ><span class="heading-second">lls</span>
+      </h2>
 
       <!-- Frontend Skills Box -->
       <div class="skills-box">
@@ -310,7 +329,10 @@
 
     <!-- Projects section -->
     <section id="projects">
-      <h2>Projects</h2>
+      <h2>
+        <span class="heading-first">Proj</span
+        ><span class="heading-second">ects</span>
+      </h2>
       <div class="projects">
         <div class="coming-soon">
           <h3>Coming Soon</h3>
@@ -320,15 +342,108 @@
             <span class="dot"></span>
           </div>
           <p>
-            Exciting projects are on the way! Stay tuned for innovative web solutions.
+            Exciting projects are on the way! Stay tuned for innovative web
+            solutions.
           </p>
         </div>
       </div>
     </section>
 
+    <section id="feedback" class="feedback-section">
+      <h2>
+        <span class="heading-first">Feed</span
+        ><span class="heading-second">back</span>
+      </h2>
+      <div class="feedback-shell">
+        <div class="feedback-intro">
+          <span class="feedback-tag">Quick Review</span>
+          <h3>How does this portfolio feel to you?</h3>
+          <p>
+            Your opinion helps me improve the design, content, and overall user
+            experience. A short rating or message would mean a lot.
+          </p>
+          <div class="feedback-points">
+            <span>Design Quality</span>
+            <span>User Experience</span>
+            <span>Professional Impression</span>
+          </div>
+        </div>
+
+        <form id="feedbackForm" class="feedback-form">
+          <label for="feedbackName" class="feedback-label">Your Name</label>
+          <input
+            type="text"
+            id="feedbackName"
+            name="feedbackName"
+            class="feedback-input"
+            placeholder="Enter your name"
+          />
+
+          <p class="feedback-label">Rate this portfolio</p>
+          <div
+            class="feedback-stars"
+            role="radiogroup"
+            aria-label="Portfolio rating"
+          >
+            <input type="radio" id="rate5" name="portfolioRating" value="5" />
+            <label for="rate5" title="5 stars"
+              ><i class="fas fa-star"></i
+            ></label>
+
+            <input type="radio" id="rate4" name="portfolioRating" value="4" />
+            <label for="rate4" title="4 stars"
+              ><i class="fas fa-star"></i
+            ></label>
+
+            <input type="radio" id="rate3" name="portfolioRating" value="3" />
+            <label for="rate3" title="3 stars"
+              ><i class="fas fa-star"></i
+            ></label>
+
+            <input type="radio" id="rate2" name="portfolioRating" value="2" />
+            <label for="rate2" title="2 stars"
+              ><i class="fas fa-star"></i
+            ></label>
+
+            <input type="radio" id="rate1" name="portfolioRating" value="1" />
+            <label for="rate1" title="1 star"
+              ><i class="fas fa-star"></i
+            ></label>
+          </div>
+
+          <p id="ratingStatus" class="rating-status">No rating selected yet.</p>
+
+          <label for="feedbackMessage" class="feedback-label"
+            >Your Feedback</label
+          >
+          <textarea
+            id="feedbackMessage"
+            name="feedbackMessage"
+            class="feedback-textarea"
+            rows="5"
+            placeholder="Share what you liked and what can be improved..."
+          ></textarea>
+
+          <button type="submit" class="feedback-submit">
+            <span>Send Feedback</span>
+            <i class="fas fa-paper-plane" aria-hidden="true"></i>
+          </button>
+
+          <p
+            id="feedbackResponse"
+            class="feedback-response"
+            aria-live="polite"
+          ></p>
+        </form>
+      </div>
+    </section>
+
     <!-- Footer section with contact information and social links -->
     <footer id="contact">
-      <h2>Connect With Me</h2>
+      <h2>
+        <span class="heading-first">Connect</span>
+        <span class="heading-second">With Me</span>
+      </h2>
 
       <!-- Contact methods -->
       <div class="contact-methods">
@@ -401,5 +516,3 @@
     </button>
   </body>
 </html>
-
-
