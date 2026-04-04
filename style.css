@@ -2935,29 +2935,64 @@ footer,
 
 /* Final profile image safeguard */
 .profile-image {
-  width: 250px !important;
-  height: 250px !important;
+  width: 230px !important;
+  height: 230px !important;
+  min-width: 230px !important;
+  min-height: 230px !important;
+  max-width: 230px !important;
+  max-height: 230px !important;
+  aspect-ratio: 1 / 1 !important;
   border-radius: 50% !important;
+  -webkit-border-radius: 50% !important;
+  clip-path: circle(50%) !important;
+  -webkit-clip-path: circle(50%) !important;
   overflow: hidden !important;
   border: 4px solid rgba(255, 255, 255, 0.1) !important;
   box-shadow: 0 20px 40px rgba(56, 189, 248, 0.3) !important;
   position: relative !important;
   z-index: 2 !important;
+  display: block !important;
+  isolation: isolate !important;
+}
+
+.profile-glow {
+  width: 270px !important;
+  height: 270px !important;
+  background: radial-gradient(
+    circle,
+    rgba(56, 189, 248, 0.26) 0%,
+    rgba(56, 189, 248, 0.12) 42%,
+    transparent 72%
+  ) !important;
 }
 
 .profile-photo {
   width: 100% !important;
   height: 100% !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
   object-fit: cover !important;
   object-position: center 22% !important;
   display: block !important;
   border-radius: 50% !important;
+  -webkit-border-radius: 50% !important;
+  clip-path: circle(50%) !important;
+  -webkit-clip-path: circle(50%) !important;
 }
 
 @media (max-width: 768px) {
   .profile-image {
-    width: 200px !important;
-    height: 200px !important;
+    width: 190px !important;
+    height: 190px !important;
+    min-width: 190px !important;
+    min-height: 190px !important;
+    max-width: 190px !important;
+    max-height: 190px !important;
+  }
+
+  .profile-glow {
+    width: 230px !important;
+    height: 230px !important;
   }
 }
 
@@ -2965,6 +3000,15 @@ footer,
   .profile-image {
     width: 150px !important;
     height: 150px !important;
+    min-width: 150px !important;
+    min-height: 150px !important;
+    max-width: 150px !important;
+    max-height: 150px !important;
+  }
+
+  .profile-glow {
+    width: 185px !important;
+    height: 185px !important;
   }
 }
 
