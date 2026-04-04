@@ -747,7 +747,6 @@ button:focus-visible {
   object-fit: cover;
   object-position: center 22%;
   display: block;
-  filter: brightness(0.82) contrast(1.08);
 }
 
 .profile-glow {
@@ -826,6 +825,9 @@ button:focus-visible {
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
   mask-composite: exclude;
   pointer-events: none;
 }
