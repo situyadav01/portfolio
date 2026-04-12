@@ -128,6 +128,46 @@ window.addEventListener("scroll", animateOnScroll);
 const navLinks = document.querySelectorAll('nav ul li a[href^="#"]');
 const trackedSections = document.querySelectorAll("section[id], footer[id]");
 const backToTopButton = document.getElementById("backToTop");
+const samePageLinks = document.querySelectorAll('a[href^="#"]');
+
+function scrollToTargetFromHash(hash, updateUrl = true) {
+  if (!hash || hash === "#") return;
+
+  const targetSection = document.querySelector(hash);
+  if (!targetSection) return;
+
+  const nav = document.querySelector("nav");
+  const navOffset = nav ? nav.offsetHeight + 20 : 100;
+  const targetTop =
+    targetSection.getBoundingClientRect().top + window.scrollY - navOffset;
+
+  window.scrollTo({
+    top: Math.max(targetTop, 0),
+    behavior: "smooth",
+  });
+
+  if (updateUrl) {
+    history.replaceState(null, "", hash);
+  }
+}
+
+samePageLinks.forEach((link) => {
+  link.addEventListener("click", (event) => {
+    const targetHash = link.getAttribute("href");
+
+    if (!targetHash || targetHash === "#") return;
+
+    event.preventDefault();
+
+    if (targetHash === "#home" && !welcomeSection?.classList.contains("welcome-hidden")) {
+      enterSite();
+      setTimeout(() => scrollToTargetFromHash(targetHash), 80);
+      return;
+    }
+
+    scrollToTargetFromHash(targetHash);
+  });
+});
 
 function updateActiveNavLink() {
   let currentId = "";
@@ -167,18 +207,23 @@ toggleBackToTop();
 window.addEventListener("scroll", updateActiveNavLink);
 window.addEventListener("scroll", toggleBackToTop);
 
+window.addEventListener("load", () => {
+  if (window.location.hash) {
+    setTimeout(() => scrollToTargetFromHash(window.location.hash, false), 120);
+  }
+});
+
 // ===== FEEDBACK FORM =====
 const feedbackForm = document.getElementById("feedbackForm");
 const feedbackResponse = document.getElementById("feedbackResponse");
 const ratingStatus = document.getElementById("ratingStatus");
-const ratingInputs = document.querySelectorAll('input[name="portfolioRating"]');
+const feedbackSubmitButton = feedbackForm?.querySelector(".feedback-submit");
+const ratingInputs = document.querySelectorAll('input[name="rating"]');
 
 function updateRatingStatus() {
   if (!ratingStatus) return;
 
-  const selectedRating = document.querySelector(
-    'input[name="portfolioRating"]:checked',
-  );
+  const selectedRating = document.querySelector('input[name="rating"]:checked');
 
   if (!selectedRating) {
     ratingStatus.textContent = "No rating selected yet.";
@@ -193,13 +238,14 @@ ratingInputs.forEach((input) => {
 });
 
 if (feedbackForm) {
-  feedbackForm.addEventListener("submit", (event) => {
+  feedbackForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const formData = new FormData(feedbackForm);
-    const name = (formData.get("feedbackName") || "").toString().trim();
-    const message = (formData.get("feedbackMessage") || "").toString().trim();
-    const rating = formData.get("portfolioRating");
+    const name = (formData.get("name") || "").toString().trim();
+    const email = (formData.get("email") || "").toString().trim();
+    const message = (formData.get("message") || "").toString().trim();
+    const rating = formData.get("rating");
 
     if (!rating) {
       if (feedbackResponse) {
@@ -208,31 +254,64 @@ if (feedbackForm) {
       return;
     }
 
+    if (!email) {
+      if (feedbackResponse) {
+        feedbackResponse.textContent = "Please enter your email so I can reply to your feedback.";
+      }
+      return;
+    }
+
     const safeName = name || "there";
-    const messageSummary =
-      message.length > 0
-        ? " Your response has been noted for future improvements."
-        : " Thanks for rating the portfolio.";
+
+    if (feedbackSubmitButton) {
+      feedbackSubmitButton.disabled = true;
+    }
 
     if (feedbackResponse) {
-      feedbackResponse.textContent = `Thank you, ${safeName}. You rated this portfolio ${rating}/5.${messageSummary}`;
+      feedbackResponse.textContent = `Sending your feedback, ${safeName}...`;
     }
 
     try {
+      const response = await fetch(feedbackForm.action, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+        },
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || (result.success !== true && result.success !== "true")) {
+        throw new Error(result.message || "Unable to send feedback.");
+      }
+
       localStorage.setItem(
         "portfolioFeedbackDraft",
         JSON.stringify({
           name,
+          email,
           rating,
           message,
           submittedAt: new Date().toISOString(),
         }),
       );
-    } catch (error) {
-      // Ignore storage issues so the UI still works normally.
-    }
 
-    feedbackForm.reset();
-    updateRatingStatus();
+      if (feedbackResponse) {
+        feedbackResponse.textContent = "Your response has been received. Thank you.";
+      }
+
+      feedbackForm.reset();
+      updateRatingStatus();
+    } catch (error) {
+      if (feedbackResponse) {
+        feedbackResponse.textContent =
+          "I couldn't send the feedback right now. Please try again in a moment.";
+      }
+    } finally {
+      if (feedbackSubmitButton) {
+        feedbackSubmitButton.disabled = false;
+      }
+    }
   });
 }
