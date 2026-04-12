@@ -3534,3 +3534,248 @@ footer,
   }
 }
 
+/* Strong mobile sizing safeguards */
+@media (max-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+
+  nav {
+    width: 100%;
+  }
+
+  nav ul {
+    width: 100%;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: 96px 18px 56px;
+  }
+
+  .hero-content {
+    gap: 24px;
+  }
+
+  .hero-text h1 {
+    font-size: clamp(2rem, 8vw, 2.4rem);
+  }
+
+  #typing {
+    font-size: 1rem;
+  }
+
+  .profile-container {
+    --profile-size: 190px;
+  }
+
+  .profile-image {
+    width: var(--profile-size);
+    height: var(--profile-size);
+  }
+
+  .profile-glow {
+    width: calc(var(--profile-size) + 34px);
+    height: calc(var(--profile-size) + 34px);
+  }
+
+  .profile-note {
+    width: min(100%, 250px);
+    font-size: 0.72rem;
+    letter-spacing: 0.09em;
+  }
+
+  section h2,
+  #about h2,
+  #skills h2,
+  #projects h2,
+  #feedback h2,
+  #contact h2 {
+    font-size: clamp(1.8rem, 7vw, 2.4rem);
+    letter-spacing: 0.08em;
+    padding-inline: 12px;
+  }
+
+  .about,
+  #skills,
+  #projects,
+  .feedback-section,
+  footer {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .about-container,
+  .about-box,
+  .skills,
+  .feedback-shell {
+    width: 100%;
+  }
+
+  .box,
+  .skills-box,
+  .feedback-intro,
+  .feedback-form,
+  .coming-soon {
+    border-radius: 18px;
+  }
+
+  .skills {
+    gap: 12px;
+  }
+
+  .card {
+    min-height: 96px;
+    padding: 18px 14px;
+  }
+
+  .card i {
+    font-size: 28px;
+  }
+
+  .card span {
+    font-size: 12px;
+    letter-spacing: 0.06em;
+  }
+
+  .feedback-intro,
+  .feedback-form {
+    padding: 22px;
+  }
+
+  .feedback-form-header h3,
+  .feedback-visual-copy h3 {
+    font-size: 1.4rem;
+  }
+
+  .feedback-visual-frame {
+    min-height: 260px;
+  }
+
+  .contact-link.email-link {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+
+  .welcome {
+    padding: 16px;
+  }
+
+  .welcome-content {
+    padding: 28px 18px;
+  }
+
+  .welcome h1 {
+    font-size: clamp(1.9rem, 9vw, 2.4rem);
+  }
+
+  .hero {
+    padding: 88px 14px 48px;
+  }
+
+  .hero-content {
+    gap: 20px;
+  }
+
+  .hero-text h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero-buttons {
+    width: 100%;
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .hero-buttons .welcome-btn {
+    padding: 12px 16px;
+    font-size: 0.92rem;
+  }
+
+  .profile-container {
+    --profile-size: 160px;
+  }
+
+  .profile-note {
+    width: min(100%, 220px);
+    font-size: 0.65rem;
+  }
+
+  section,
+  .about,
+  .feedback-section,
+  footer {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  section h2,
+  #about h2,
+  #skills h2,
+  #projects h2,
+  #feedback h2,
+  #contact h2 {
+    font-size: 1.65rem;
+    letter-spacing: 0.06em;
+    margin-bottom: 32px;
+  }
+
+  .about-text p,
+  .box p,
+  .feedback-intro p,
+  .feedback-form-header p,
+  .feedback-response,
+  .contact-link span {
+    font-size: 0.95rem;
+  }
+
+  .skills-box,
+  .feedback-intro,
+  .feedback-form,
+  .coming-soon,
+  .box {
+    padding: 18px 14px !important;
+  }
+
+  .skills-category {
+    font-size: 1rem !important;
+    margin-bottom: 20px !important;
+  }
+
+  .card {
+    width: 100%;
+    min-width: 0;
+    min-height: 84px;
+    padding: 16px 12px !important;
+  }
+
+  .feedback-visual-frame {
+    min-height: 220px;
+  }
+
+  .feedback-visual-card {
+    padding: 12px 14px;
+  }
+
+  .feedback-visual-card strong {
+    font-size: 0.95rem;
+  }
+
+  .feedback-input,
+  .feedback-textarea {
+    font-size: 16px;
+  }
+
+  .contact-link.email-link {
+    padding: 14px !important;
+    gap: 10px !important;
+  }
+}
+

@@ -218,7 +218,16 @@ const feedbackForm = document.getElementById("feedbackForm");
 const feedbackResponse = document.getElementById("feedbackResponse");
 const ratingStatus = document.getElementById("ratingStatus");
 const feedbackSubmitButton = feedbackForm?.querySelector(".feedback-submit");
+const feedbackNextField = document.getElementById("feedbackNext");
 const ratingInputs = document.querySelectorAll('input[name="rating"]');
+const pageUrl = new URL(window.location.href);
+const feedbackSubmissionSucceeded =
+  pageUrl.searchParams.get("feedback") === "success";
+
+if (feedbackSubmissionSucceeded) {
+  document.body.classList.remove("welcome-active");
+  welcomeSection?.classList.add("welcome-hidden");
+}
 
 function updateRatingStatus() {
   if (!ratingStatus) return;
@@ -238,16 +247,31 @@ ratingInputs.forEach((input) => {
 });
 
 if (feedbackForm) {
-  feedbackForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
+  if (feedbackNextField) {
+    const successUrl = new URL(window.location.href);
+    successUrl.searchParams.delete("feedback");
+    successUrl.searchParams.set("feedback", "success");
+    successUrl.hash = "feedback";
+    feedbackNextField.value = successUrl.toString();
+  }
 
+  if (feedbackSubmissionSucceeded && feedbackResponse) {
+    feedbackResponse.textContent = "Your response has been received. Thank you.";
+    pageUrl.searchParams.delete("feedback");
+    history.replaceState(null, "", `${pageUrl.pathname}${pageUrl.search}${pageUrl.hash}`);
+    window.addEventListener("load", () => {
+      setTimeout(() => scrollToTargetFromHash("#feedback", false), 120);
+    });
+  }
+
+  feedbackForm.addEventListener("submit", (event) => {
     const formData = new FormData(feedbackForm);
     const name = (formData.get("name") || "").toString().trim();
     const email = (formData.get("email") || "").toString().trim();
-    const message = (formData.get("message") || "").toString().trim();
     const rating = formData.get("rating");
 
     if (!rating) {
+      event.preventDefault();
       if (feedbackResponse) {
         feedbackResponse.textContent = "Please choose a star rating before sending feedback.";
       }
@@ -255,6 +279,7 @@ if (feedbackForm) {
     }
 
     if (!email) {
+      event.preventDefault();
       if (feedbackResponse) {
         feedbackResponse.textContent = "Please enter your email so I can reply to your feedback.";
       }
@@ -268,50 +293,22 @@ if (feedbackForm) {
     }
 
     if (feedbackResponse) {
-      feedbackResponse.textContent = `Sending your feedback, ${safeName}...`;
+      feedbackResponse.textContent = `Submitting your feedback, ${safeName}...`;
     }
 
     try {
-      const response = await fetch(feedbackForm.action, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-        },
-        body: formData,
-      });
-
-      const result = await response.json();
-
-      if (!response.ok || (result.success !== true && result.success !== "true")) {
-        throw new Error(result.message || "Unable to send feedback.");
-      }
-
       localStorage.setItem(
         "portfolioFeedbackDraft",
         JSON.stringify({
           name,
           email,
           rating,
-          message,
+          message: (formData.get("message") || "").toString().trim(),
           submittedAt: new Date().toISOString(),
         }),
       );
-
-      if (feedbackResponse) {
-        feedbackResponse.textContent = "Your response has been received. Thank you.";
-      }
-
-      feedbackForm.reset();
-      updateRatingStatus();
     } catch (error) {
-      if (feedbackResponse) {
-        feedbackResponse.textContent =
-          "I couldn't send the feedback right now. Please try again in a moment.";
-      }
-    } finally {
-      if (feedbackSubmitButton) {
-        feedbackSubmitButton.disabled = false;
-      }
+      // Ignore storage issues so the form can still submit normally.
     }
   });
 }
