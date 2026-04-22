@@ -134,7 +134,7 @@
         <!-- Education card -->
         <div class="box">
           <h3>Education</h3>
-          <p>GEC West Champaran(2k25-29 Batch)</p>
+          <p>B.Tech, GEC West Champaran (Batch 2k25-29)</p>
         </div>
 
         <!-- Branch/Specialization card -->
@@ -272,76 +272,64 @@
       <span class="heading-first">Feed</span><span class="heading-second">back</span>
     </h2>
     <div class="feedback-shell">
-      <div class="feedback-intro">
-        <div class="feedback-visual">
-          <span class="feedback-visual-tag">Portfolio Signal</span>
-          <div class="feedback-visual-frame">
-            <div class="feedback-visual-orb feedback-visual-orb-one"></div>
-            <div class="feedback-visual-orb feedback-visual-orb-two"></div>
-            <div class="feedback-visual-grid"></div>
-            <div class="feedback-visual-card feedback-visual-card-main">
-              <span>Design</span>
-              <strong>Refined Experience</strong>
-            </div>
-            <div class="feedback-visual-card feedback-visual-card-side">
-              <span>Clarity</span>
-              <strong>Premium Interface</strong>
-            </div>
-            <div class="feedback-visual-line feedback-visual-line-one"></div>
-            <div class="feedback-visual-line feedback-visual-line-two"></div>
-          </div>
-          <div class="feedback-visual-copy">
-            <h3>Your Opinion Matters</h3>
-            <p>Every response helps improve the experience and make this portfolio more useful, polished, and engaging for visitors.</p>
-          </div>
-        </div>
-      </div>
-
       <form id="feedbackForm" class="feedback-form" action="https://formsubmit.co/situkumaryadav638@gmail.com"
         method="POST">
         <input type="hidden" name="_subject" value="New portfolio feedback" />
         <input type="hidden" name="_template" value="table" />
         <input type="hidden" name="_captcha" value="false" />
-        <input type="hidden" name="_next" id="feedbackNext" value="" />
         <input type="text" name="_honey" class="feedback-honeypot" tabindex="-1" autocomplete="off" />
 
         <div class="feedback-form-header">
           <span class="feedback-form-tag">Direct Response</span>
           <h3>Share Your Thoughts</h3>
           <p>A quick review helps make this portfolio sharper, clearer, and more useful.</p>
+          <div class="feedback-points" aria-label="Feedback focus areas">
+            <span>Design</span>
+            <span>Clarity</span>
+            <span>Experience</span>
+          </div>
         </div>
 
-        <div class="feedback-field">
-          <input type="text" id="feedbackName" name="name" class="feedback-input" placeholder=" "
-            autocomplete="name" />
-          <label for="feedbackName" class="feedback-label">Your Name</label>
+        <div class="feedback-grid">
+          <div class="feedback-field">
+            <input type="text" id="feedbackName" name="name" class="feedback-input" placeholder=" "
+              autocomplete="name" />
+            <label for="feedbackName" class="feedback-label">Your Name</label>
+          </div>
+
+          <div class="feedback-field">
+            <input type="email" id="feedbackEmail" name="email" class="feedback-input" placeholder=" " required
+              autocomplete="email" inputmode="email" />
+            <label for="feedbackEmail" class="feedback-label">Your Email</label>
+          </div>
         </div>
 
-        <div class="feedback-field">
-          <input type="email" id="feedbackEmail" name="email" class="feedback-input" placeholder=" " required
-            autocomplete="email" inputmode="email" />
-          <label for="feedbackEmail" class="feedback-label">Your Email</label>
+        <div class="feedback-rating-panel">
+          <div class="feedback-rating-copy">
+            <p class="feedback-label">Rate this portfolio</p>
+            <div class="rating-reaction">
+              <span id="ratingEmoji" class="rating-emoji" aria-hidden="true">✨</span>
+              <p id="ratingStatus" class="rating-status">No rating selected yet.</p>
+            </div>
+          </div>
+
+          <div class="feedback-stars" role="radiogroup" aria-labelledby="ratingStatus">
+            <input type="radio" id="rate5" name="rating" value="5" />
+            <label for="rate5" title="5 stars"><i class="fas fa-star"></i></label>
+
+            <input type="radio" id="rate4" name="rating" value="4" />
+            <label for="rate4" title="4 stars"><i class="fas fa-star"></i></label>
+
+            <input type="radio" id="rate3" name="rating" value="3" />
+            <label for="rate3" title="3 stars"><i class="fas fa-star"></i></label>
+
+            <input type="radio" id="rate2" name="rating" value="2" />
+            <label for="rate2" title="2 stars"><i class="fas fa-star"></i></label>
+
+            <input type="radio" id="rate1" name="rating" value="1" />
+            <label for="rate1" title="1 star"><i class="fas fa-star"></i></label>
+          </div>
         </div>
-
-        <p class="feedback-label">Rate this portfolio</p>
-        <div class="feedback-stars" role="radiogroup" aria-label="Portfolio rating">
-          <input type="radio" id="rate5" name="rating" value="5" />
-          <label for="rate5" title="5 stars"><i class="fas fa-star"></i></label>
-
-          <input type="radio" id="rate4" name="rating" value="4" />
-          <label for="rate4" title="4 stars"><i class="fas fa-star"></i></label>
-
-          <input type="radio" id="rate3" name="rating" value="3" />
-          <label for="rate3" title="3 stars"><i class="fas fa-star"></i></label>
-
-          <input type="radio" id="rate2" name="rating" value="2" />
-          <label for="rate2" title="2 stars"><i class="fas fa-star"></i></label>
-
-          <input type="radio" id="rate1" name="rating" value="1" />
-          <label for="rate1" title="1 star"><i class="fas fa-star"></i></label>
-        </div>
-
-        <p id="ratingStatus" class="rating-status">No rating selected yet.</p>
 
         <div class="feedback-field feedback-field-textarea">
           <textarea id="feedbackMessage" name="message" class="feedback-textarea" rows="5"

@@ -1,4 +1,4 @@
-// ===== HERO TYPING ANIMATION =====
+﻿// ===== HERO TYPING ANIMATION =====
 const typingTarget = document.getElementById("typing");
 const typingTexts = [
   "Full Stack Developer",
@@ -99,30 +99,27 @@ if (welcomeButton) {
 }
 
 // ===== SCROLL ANIMATIONS =====
-// Function to add animation class when elements come into view
 function animateOnScroll() {
-  // Select all elements that should animate on scroll
   const elements = document.querySelectorAll(
-    ".about-container, .skills, .projects, .coming-soon, footer",
+    ".about-container, .skills, .projects, .coming-soon, footer"
   );
 
-  elements.forEach((element) => {
-    const elementTop = element.getBoundingClientRect().top; // Distance from top of viewport
-    const elementBottom = element.getBoundingClientRect().bottom; // Distance from bottom
-    const windowHeight = window.innerHeight; // Height of browser window
+  const observerOptions = {
+    threshold: 0.15
+  };
 
-    // Check if element is visible in viewport
-    if (elementTop < windowHeight - 100 && elementBottom > 0) {
-      element.classList.add("animate"); // Add animation class
-    }
-  });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("animate");
+      }
+    });
+  }, observerOptions);
+
+  elements.forEach((el) => observer.observe(el));
 }
 
-// Run animation check when page loads
-animateOnScroll();
-
-// Listen for scroll events to trigger animations
-window.addEventListener("scroll", animateOnScroll);
+document.addEventListener("DOMContentLoaded", animateOnScroll);
 
 // ===== NAV HIGHLIGHT + BACK TO TOP =====
 const navLinks = document.querySelectorAll('nav ul li a[href^="#"]');
@@ -196,16 +193,24 @@ function toggleBackToTop() {
   backToTopButton.classList.toggle("show", window.scrollY > 360);
 }
 
+// Throttle scroll events for performance
+let isScrolling = false;
+window.addEventListener("scroll", () => {
+  if (!isScrolling) {
+    window.requestAnimationFrame(() => {
+      updateActiveNavLink();
+      toggleBackToTop();
+      isScrolling = false;
+    });
+    isScrolling = true;
+  }
+});
+
 if (backToTopButton) {
   backToTopButton.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 }
-
-updateActiveNavLink();
-toggleBackToTop();
-window.addEventListener("scroll", updateActiveNavLink);
-window.addEventListener("scroll", toggleBackToTop);
 
 window.addEventListener("load", () => {
   if (window.location.hash) {
@@ -218,28 +223,39 @@ const feedbackForm = document.getElementById("feedbackForm");
 const feedbackResponse = document.getElementById("feedbackResponse");
 const ratingStatus = document.getElementById("ratingStatus");
 const feedbackSubmitButton = feedbackForm?.querySelector(".feedback-submit");
-const feedbackNextField = document.getElementById("feedbackNext");
 const ratingInputs = document.querySelectorAll('input[name="rating"]');
-const pageUrl = new URL(window.location.href);
-const feedbackSubmissionSucceeded =
-  pageUrl.searchParams.get("feedback") === "success";
+const ratingEmoji = document.getElementById("ratingEmoji");
 
-if (feedbackSubmissionSucceeded) {
-  document.body.classList.remove("welcome-active");
-  welcomeSection?.classList.add("welcome-hidden");
-}
+const ratingReactions = {
+  1: { emoji: "\u{1F615}", text: "Needs work" },
+  2: { emoji: "\u{1F642}", text: "Getting there" },
+  3: { emoji: "\u{1F60E}", text: "Nice" },
+  4: { emoji: "\u{1F929}", text: "Great" },
+  5: { emoji: "\u{1F680}", text: "Excellent" },
+};
 
 function updateRatingStatus() {
   if (!ratingStatus) return;
-
   const selectedRating = document.querySelector('input[name="rating"]:checked');
 
   if (!selectedRating) {
     ratingStatus.textContent = "No rating selected yet.";
+    if (ratingEmoji) {
+      ratingEmoji.textContent = "\u2728";
+      ratingEmoji.classList.remove("rating-emoji-pop");
+    }
     return;
   }
 
-  ratingStatus.textContent = `You selected ${selectedRating.value} out of 5 stars.`;
+  const reaction = ratingReactions[selectedRating.value] || ratingReactions[3];
+  ratingStatus.textContent = `${reaction.text} - ${selectedRating.value} out of 5 stars.`;
+
+  if (ratingEmoji) {
+    ratingEmoji.textContent = reaction.emoji;
+    ratingEmoji.classList.remove("rating-emoji-pop");
+    void ratingEmoji.offsetWidth;
+    ratingEmoji.classList.add("rating-emoji-pop");
+  }
 }
 
 ratingInputs.forEach((input) => {
@@ -247,68 +263,68 @@ ratingInputs.forEach((input) => {
 });
 
 if (feedbackForm) {
-  if (feedbackNextField) {
-    const successUrl = new URL(window.location.href);
-    successUrl.searchParams.delete("feedback");
-    successUrl.searchParams.set("feedback", "success");
-    successUrl.hash = "feedback";
-    feedbackNextField.value = successUrl.toString();
-  }
+  feedbackForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
 
-  if (feedbackSubmissionSucceeded && feedbackResponse) {
-    feedbackResponse.textContent = "Your response has been received. Thank you.";
-    pageUrl.searchParams.delete("feedback");
-    history.replaceState(null, "", `${pageUrl.pathname}${pageUrl.search}${pageUrl.hash}`);
-    window.addEventListener("load", () => {
-      setTimeout(() => scrollToTargetFromHash("#feedback", false), 120);
-    });
-  }
-
-  feedbackForm.addEventListener("submit", (event) => {
     const formData = new FormData(feedbackForm);
-    const name = (formData.get("name") || "").toString().trim();
+    const nameInput = formData.get("name");
+    const name = (nameInput && nameInput.toString().trim()) ? nameInput.toString().trim() : "Anonymous";
     const email = (formData.get("email") || "").toString().trim();
     const rating = formData.get("rating");
 
+    // Basic Validation
     if (!rating) {
-      event.preventDefault();
-      if (feedbackResponse) {
-        feedbackResponse.textContent = "Please choose a star rating before sending feedback.";
-      }
+      if (feedbackResponse) feedbackResponse.textContent = "Please choose a star rating.";
       return;
     }
 
     if (!email) {
-      event.preventDefault();
-      if (feedbackResponse) {
-        feedbackResponse.textContent = "Please enter your email so I can reply to your feedback.";
-      }
+      if (feedbackResponse) feedbackResponse.textContent = "Please enter your email.";
       return;
     }
 
-    const safeName = name || "there";
-
-    if (feedbackSubmitButton) {
-      feedbackSubmitButton.disabled = true;
-    }
-
+    // UI Loading State
+    if (feedbackSubmitButton) feedbackSubmitButton.disabled = true;
     if (feedbackResponse) {
-      feedbackResponse.textContent = `Submitting your feedback, ${safeName}...`;
+      feedbackResponse.textContent = "Sending your feedback...";
+      feedbackResponse.style.color = "#7dd3fc";
     }
 
     try {
+      const response = await fetch(feedbackForm.action, {
+        method: "POST",
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        if (feedbackResponse) {
+          feedbackResponse.textContent = "Thank you! Your feedback has been received.";
+          feedbackResponse.style.color = "#4ade80"; // Success Green
+        }
+        feedbackForm.reset();
+        updateRatingStatus();
+      } else {
+        throw new Error("Form submission failed");
+      }
+
       localStorage.setItem(
         "portfolioFeedbackDraft",
         JSON.stringify({
-          name,
+          name: name,
           email,
           rating,
           message: (formData.get("message") || "").toString().trim(),
           submittedAt: new Date().toISOString(),
         }),
       );
-    } catch (error) {
-      // Ignore storage issues so the form can still submit normally.
+    } catch (err) {
+      if (feedbackResponse) {
+        feedbackResponse.textContent = "Oops! Something went wrong. Please try again.";
+        feedbackResponse.style.color = "#f87171"; // Error Red
+      }
+    } finally {
+      if (feedbackSubmitButton) feedbackSubmitButton.disabled = false;
     }
   });
 }
