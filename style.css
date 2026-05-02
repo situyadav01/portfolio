@@ -521,6 +521,22 @@ body.welcome-active {
   box-shadow: 0 0 14px rgba(56, 189, 248, 0.35);
 }
 
+.about-box .box::before,
+.about-box .box::after {
+  content: none;
+}
+
+.about-box .box:hover {
+  transform: translateY(-4px);
+  background: linear-gradient(
+    135deg,
+    rgba(56, 189, 248, 0.15),
+    rgba(56, 189, 248, 0.08)
+  );
+  border-color: #38bdf8;
+  box-shadow: 0 15px 40px rgba(56, 189, 248, 0.15);
+}
+
 .about-box .box:hover h3 {
   color: #f8fafc;
   transform: translateX(0);
@@ -529,6 +545,11 @@ body.welcome-active {
 .box:hover p {
   color: #0f172a; /* Dark color on hover */
   transform: translateX(5px);
+}
+
+.about-box .box:hover p {
+  color: #cbd5e1;
+  transform: none;
 }
 
 /* ===== PAGE BACKGROUND ===== */
@@ -582,10 +603,13 @@ nav {
   background: rgba(0, 0, 0, 0.5);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 1500;
   width: 100%;
+  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.28);
 }
 
 .logo {
@@ -599,14 +623,12 @@ nav {
   text-transform: uppercase;
   position: relative;
   cursor: pointer;
-  transition:
-    color 0.25s ease,
-    transform 0.25s ease;
+  transition: none;
 }
 
 .logo:hover {
-  color: #bae6fd;
-  transform: translateY(-1px);
+  color: #f8fafc;
+  transform: none;
 }
 
 .logo::after {
@@ -619,26 +641,17 @@ nav {
   border-radius: 999px;
   background: linear-gradient(90deg, rgba(56, 189, 248, 0.15), #38bdf8 45%, rgba(34, 211, 238, 0.25));
   transform-origin: left;
-  transform: scaleX(0.72);
-  transition:
-    transform 0.25s ease,
-    opacity 0.25s ease;
-  opacity: 0.9;
+  transform: none;
+  transition: none;
+  opacity: 1;
 }
 
 .logo::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -6px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.45), transparent);
-  opacity: 0.65;
+  content: none;
 }
 
 .logo:hover::after {
-  transform: scaleX(1);
+  transform: none;
   opacity: 1;
 }
 
@@ -954,7 +967,7 @@ button:focus-visible {
     linear-gradient(#000 0 0);
   mask-composite: exclude;
   padding: 2px;
-  animation: profileNoteOrbit 3.2s linear infinite;
+  animation: none;
   box-shadow:
     0 0 20px rgba(56, 189, 248, 0.35),
     0 0 38px rgba(34, 211, 238, 0.2);
@@ -1921,18 +1934,21 @@ section h2::after {
   box-shadow: 0 8px 32px rgba(56, 189, 248, 0.15);
   position: relative;
   overflow: hidden;
-  transition: all 0.4s ease;
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
   max-width: 1000px;
-  animation: skillsBoxSlideIn 0.8s ease forwards;
+  animation: none;
   width: 100%;
 }
 
 .skills-box:nth-child(2) {
-  animation-delay: 0.2s;
+  animation-delay: 0s;
 }
 
 .skills-box:nth-child(3) {
-  animation-delay: 0.4s;
+  animation-delay: 0s;
 }
 
 @keyframes skillsBoxSlideIn {
@@ -1947,7 +1963,7 @@ section h2::after {
 }
 
 .skills-box::before {
-  content: "";
+  content: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -1964,7 +1980,7 @@ section h2::after {
       rgba(168, 85, 247, 0.05) 0%,
       transparent 50%
     );
-  animation: skillsBoxGlow 6s ease-in-out infinite;
+  animation: none;
   z-index: 1;
   pointer-events: none;
 }
@@ -1983,11 +1999,11 @@ section h2::after {
   border-color: #38bdf8;
   background: linear-gradient(
     135deg,
-    rgba(56, 189, 248, 0.12),
-    rgba(6, 182, 212, 0.08)
+    rgba(56, 189, 248, 0.1),
+    rgba(6, 182, 212, 0.05)
   );
-  box-shadow: 0 12px 50px rgba(56, 189, 248, 0.25);
-  transform: translateY(-5px);
+  box-shadow: 0 10px 34px rgba(56, 189, 248, 0.16);
+  transform: none;
 }
 
 .skills-category {
@@ -2038,8 +2054,8 @@ section h2::after {
 .card {
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.08),
-    rgba(255, 255, 255, 0.03)
+    rgba(15, 23, 42, 0.58),
+    rgba(15, 23, 42, 0.34)
   );
   padding: 30px 25px;
   margin: 0;
@@ -2047,7 +2063,8 @@ section h2::after {
   transition:
     border-color 0.25s ease,
     background 0.25s ease,
-    box-shadow 0.25s ease;
+    box-shadow 0.25s ease,
+    color 0.25s ease;
   border: 1px solid rgba(56, 189, 248, 0.2);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   -webkit-backdrop-filter: blur(10px);
@@ -2066,7 +2083,7 @@ section h2::after {
   gap: 10px;
   min-height: 120px;
   text-decoration: none;
-  cursor: pointer;
+  cursor: default;
 }
 
 .card i {
@@ -2074,14 +2091,12 @@ section h2::after {
   color: #38bdf8;
   transition:
     color 0.25s ease,
-    filter 0.25s ease,
-    transform 0.25s ease;
+    filter 0.25s ease;
   margin-bottom: 5px;
 }
 
 .card:hover i {
-  color: white;
-  transform: scale(1.06);
+  color: #7dd3fc;
 }
 
 .card span {
@@ -2092,7 +2107,7 @@ section h2::after {
 }
 
 .card::before {
-  content: "";
+  content: none;
   position: absolute;
   top: 0;
   left: -100%;
@@ -2108,24 +2123,23 @@ section h2::after {
 }
 
 .card:hover::before {
-  left: 100%;
+  left: -100%;
 }
 
 .card:hover {
-  background: rgba(56, 189, 248, 0.15);
-  box-shadow:
-    0 15px 35px rgba(56, 189, 248, 0.2),
-    0 0 80px rgba(56, 189, 248, 0.3),
-    0 12px 30px rgba(56, 189, 248, 0.2),
-    inset 0 0 20px rgba(255, 255, 255, 0.1);
-  border-color: #38bdf8;
-  border-radius: 25px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(
+    135deg,
+    rgba(56, 189, 248, 0.12),
+    rgba(15, 23, 42, 0.42)
+  );
+  box-shadow: 0 10px 26px rgba(56, 189, 248, 0.14);
+  border-color: rgba(125, 211, 252, 0.6);
+  border-radius: 15px;
+  text-shadow: none;
 }
 
 .card:hover i {
-  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
-  transform: scale(1.06);
+  filter: none;
 }
 
 .coming-soon {
@@ -2258,9 +2272,9 @@ footer h2 {
 }
 
 footer.animate h2 {
-  opacity: 0;
-  transform: translateY(30px);
-  animation: titleEnter 0.8s ease forwards;
+  opacity: 1;
+  transform: none;
+  animation: none;
 }
 
 @keyframes titleEnter {
@@ -2360,39 +2374,26 @@ footer.animate h2 {
   display: none;
 }
 
-/* Special styling for email link to show the email address */
+/* Email link as a centered icon button */
 .contact-link.email-link {
-  border-radius: 50px !important;
-  width: auto !important;
-  min-width: 320px !important;
-  padding: 20px 40px !important;
-  gap: 20px !important;
-}
-
-.contact-link.email-link span {
-  display: block !important;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 250px;
-}
-
-.contact-link.email-link:hover span {
-  color: #0f172a;
-  transform: translateX(5px);
+  width: 84px !important;
+  height: 84px !important;
+  min-width: 84px !important;
+  padding: 0 !important;
+  gap: 0 !important;
+  border-radius: 50% !important;
 }
 
 .contact-link.email-link i {
-  font-size: 32px !important;
+  font-size: 34px !important;
   flex-shrink: 0;
 }
 
 /* Contact link entrance animation */
 footer.animate .contact-link {
-  opacity: 0;
-  transform: translateY(30px) scale(0.9);
-  animation: contactLinkEnter 0.8s ease forwards;
-  animation-delay: 0.1s;
+  opacity: 1;
+  transform: none;
+  animation: none;
 }
 
 @keyframes contactLinkEnter {
@@ -2471,9 +2472,9 @@ footer .social a:nth-child(4) {
 
 /* Social icon entrance animation */
 footer.animate .social a {
-  opacity: 0;
-  transform: translateY(30px) scale(0.8);
-  animation: socialIconEnter 0.6s ease forwards;
+  opacity: 1;
+  transform: none;
+  animation: none;
 }
 
 footer.animate .social a:nth-child(1) {
@@ -2508,10 +2509,9 @@ footer.animate .social a:nth-child(4) {
   font-size: 15px;
   letter-spacing: 1px;
   position: relative;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 1s ease forwards;
-  animation-delay: 0.8s;
+  opacity: 1;
+  transform: none;
+  animation: none;
   padding: 15px 30px;
   background: linear-gradient(
     135deg,
@@ -2580,10 +2580,9 @@ footer.animate .social a:nth-child(4) {
   font-size: 13px;
   margin-top: 12px;
   margin: 0;
-  opacity: 0;
-  transform: translateY(15px);
-  animation: fadeInUp 1s ease forwards;
-  animation-delay: 1s;
+  opacity: 1;
+  transform: none;
+  animation: none;
   font-style: italic;
   letter-spacing: 0.3px;
   transition: all 0.3s ease;
@@ -2610,25 +2609,6 @@ footer.animate .social a:nth-child(4) {
   }
 }
 
-.copyright-text:hover {
-  background: linear-gradient(
-    135deg,
-    rgba(56, 189, 248, 0.1),
-    rgba(168, 85, 247, 0.1)
-  );
-  border-color: rgba(56, 189, 248, 0.3);
-  box-shadow: 0 8px 25px rgba(56, 189, 248, 0.15);
-  transform: translateY(-5px);
-}
-
-.copyright-text:hover .copyright-name {
-  filter: brightness(1.2);
-}
-
-.copyright-text:hover .copyright-year {
-  color: #d8b4fe;
-}
-
 @keyframes fadeInUp {
   to {
     opacity: 1;
@@ -2648,20 +2628,16 @@ footer.animate .social a:nth-child(4) {
 }
 
 .about-container,
-.skills,
 .projects,
-.coming-soon,
-footer {
+.coming-soon {
   opacity: 0;
   transform: translateY(50px);
   transition: all 0.8s ease;
 }
 
 .about-container.animate,
-.skills.animate,
 .projects.animate,
-.coming-soon.animate,
-footer.animate {
+.coming-soon.animate {
   opacity: 1;
   transform: translateY(0);
 }
@@ -2984,15 +2960,6 @@ footer.animate {
     max-width: 100%;
   }
 
-  .contact-link.email-link {
-    min-width: 0 !important;
-    width: min(100%, 420px) !important;
-  }
-
-  .contact-link.email-link span {
-    max-width: 100%;
-  }
-
   .contact-methods {
     width: 100%;
   }
@@ -3092,17 +3059,6 @@ footer.animate {
 
   footer {
     padding: 72px 20px;
-  }
-
-  .contact-link.email-link {
-    padding: 18px 20px !important;
-  }
-
-  .contact-link.email-link span {
-    white-space: normal;
-    overflow: visible;
-    text-overflow: unset;
-    word-break: break-word;
   }
 
   .copyright-text {
@@ -3256,17 +3212,6 @@ footer.animate {
     overflow-wrap: anywhere !important;
   }
 
-  .contact-link.email-link {
-    min-width: 0 !important;
-    width: min(100%, 360px) !important;
-    padding: 16px !important;
-    gap: 12px !important;
-  }
-
-  .contact-link.email-link span {
-    font-size: 13px;
-    text-align: left;
-  }
 }
 
 @media (max-width: 640px) {
@@ -3439,11 +3384,6 @@ footer.animate {
     font-size: 1.4rem;
   }
 
-  .contact-link.email-link {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-  }
 }
 
 @media (max-width: 480px) {
@@ -3547,7 +3487,14 @@ footer.animate {
   }
 
   .contact-link.email-link {
-    padding: 14px !important;
-    gap: 10px !important;
+    width: 70px !important;
+    height: 70px !important;
+    min-width: 70px !important;
+    padding: 0 !important;
+    gap: 0 !important;
+  }
+
+  .contact-link.email-link i {
+    font-size: 28px !important;
   }
 }
