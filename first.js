@@ -61,7 +61,7 @@ renderAboutSection();
 
 // Hide the welcome section after entering the site once.
 const welcomeSection = document.getElementById("welcome");
-const welcomeButton = document.querySelector(".welcome-btn");
+const welcomeButton = document.querySelector("#welcome .welcome-btn");
 const homeSection = document.getElementById("home");
 let isEnteringSite = false;
 
@@ -219,112 +219,119 @@ window.addEventListener("load", () => {
 });
 
 // ===== FEEDBACK FORM =====
-const feedbackForm = document.getElementById("feedbackForm");
-const feedbackResponse = document.getElementById("feedbackResponse");
-const ratingStatus = document.getElementById("ratingStatus");
-const feedbackSubmitButton = feedbackForm?.querySelector(".feedback-submit");
-const ratingInputs = document.querySelectorAll('input[name="rating"]');
-const ratingEmoji = document.getElementById("ratingEmoji");
+function initializeFeedbackForm() {
+  const feedbackForm = document.getElementById("feedbackForm");
+  const feedbackResponse = document.getElementById("feedbackResponse");
+  const ratingStatus = document.getElementById("ratingStatus");
+  const feedbackSubmitButton = feedbackForm?.querySelector(".feedback-submit");
+  const ratingInputs = document.querySelectorAll('input[name="rating"]');
+  const ratingEmoji = document.getElementById("ratingEmoji");
 
-const ratingReactions = {
-  1: { emoji: "\u{1F615}", text: "Needs work" },
-  2: { emoji: "\u{1F642}", text: "Getting there" },
-  3: { emoji: "\u{1F60E}", text: "Nice" },
-  4: { emoji: "\u{1F929}", text: "Great" },
-  5: { emoji: "\u{1F680}", text: "Excellent" },
-};
+  const ratingReactions = {
+    1: { emoji: "\u{1F615}", text: "Needs work" },
+    2: { emoji: "\u{1F642}", text: "Getting there" },
+    3: { emoji: "\u{1F60E}", text: "Nice" },
+    4: { emoji: "\u{1F929}", text: "Great" },
+    5: { emoji: "\u{1F680}", text: "Excellent" },
+  };
 
-function updateRatingStatus() {
-  if (!ratingStatus) return;
-  const selectedRating = document.querySelector('input[name="rating"]:checked');
+  function updateRatingStatus() {
+    if (!ratingStatus) return;
+    const selectedRating = document.querySelector('input[name="rating"]:checked');
 
-  if (!selectedRating) {
-    ratingStatus.textContent = "No rating selected yet.";
+    if (!selectedRating) {
+      ratingStatus.textContent = "No rating selected yet.";
+      if (ratingEmoji) {
+        ratingEmoji.textContent = "\u2728";
+        ratingEmoji.classList.remove("rating-emoji-pop");
+      }
+      return;
+    }
+
+    const reaction = ratingReactions[selectedRating.value] || ratingReactions[3];
+    ratingStatus.textContent = `${reaction.text} - ${selectedRating.value} out of 5 stars.`;
+
     if (ratingEmoji) {
-      ratingEmoji.textContent = "\u2728";
+      ratingEmoji.textContent = reaction.emoji;
       ratingEmoji.classList.remove("rating-emoji-pop");
+      void ratingEmoji.offsetWidth;
+      ratingEmoji.classList.add("rating-emoji-pop");
     }
-    return;
   }
 
-  const reaction = ratingReactions[selectedRating.value] || ratingReactions[3];
-  ratingStatus.textContent = `${reaction.text} - ${selectedRating.value} out of 5 stars.`;
+  ratingInputs.forEach((input) => {
+    input.addEventListener("change", updateRatingStatus);
+  });
 
-  if (ratingEmoji) {
-    ratingEmoji.textContent = reaction.emoji;
-    ratingEmoji.classList.remove("rating-emoji-pop");
-    void ratingEmoji.offsetWidth;
-    ratingEmoji.classList.add("rating-emoji-pop");
-  }
-}
+  if (feedbackForm && feedbackSubmitButton) {
+    feedbackSubmitButton.addEventListener("click", async (event) => {
+      event.preventDefault();
+      event.stopPropagation();
 
-ratingInputs.forEach((input) => {
-  input.addEventListener("change", updateRatingStatus);
-});
+      const formData = new FormData(feedbackForm);
+      const nameInput = formData.get("name");
+      const name = (nameInput && nameInput.toString().trim()) ? nameInput.toString().trim() : "Anonymous";
+      const email = (formData.get("email") || "").toString().trim();
+      const rating = formData.get("rating");
+      const message = (formData.get("message") || "").toString().trim();
 
-if (feedbackForm) {
-  feedbackForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
+      // Basic Validation
+      if (!rating) {
+        if (feedbackResponse) feedbackResponse.textContent = "Please choose a star rating.";
+        feedbackResponse.style.color = "#f87171";
+        return false;
+      }
 
-    const formData = new FormData(feedbackForm);
-    const nameInput = formData.get("name");
-    const name = (nameInput && nameInput.toString().trim()) ? nameInput.toString().trim() : "Anonymous";
-    const email = (formData.get("email") || "").toString().trim();
-    const rating = formData.get("rating");
+      if (!email) {
+        if (feedbackResponse) feedbackResponse.textContent = "Please enter your email.";
+        feedbackResponse.style.color = "#f87171";
+        return false;
+      }
 
-    // Basic Validation
-    if (!rating) {
-      if (feedbackResponse) feedbackResponse.textContent = "Please choose a star rating.";
-      return;
-    }
+      // UI Loading State
+      if (feedbackSubmitButton) feedbackSubmitButton.disabled = true;
+      if (feedbackResponse) {
+        feedbackResponse.textContent = "Sending your feedback...";
+        feedbackResponse.style.color = "#7dd3fc";
+      }
 
-    if (!email) {
-      if (feedbackResponse) feedbackResponse.textContent = "Please enter your email.";
-      return;
-    }
+      try {
+        // Save feedback to localStorage only
+        const allFeedback = JSON.parse(localStorage.getItem("portfolioFeedback") || "[]");
+        const newFeedback = {
+          name: name,
+          email: email,
+          rating: rating,
+          message: message,
+          submittedAt: new Date().toISOString(),
+        };
+        allFeedback.push(newFeedback);
+        localStorage.setItem("portfolioFeedback", JSON.stringify(allFeedback));
 
-    // UI Loading State
-    if (feedbackSubmitButton) feedbackSubmitButton.disabled = true;
-    if (feedbackResponse) {
-      feedbackResponse.textContent = "Sending your feedback...";
-      feedbackResponse.style.color = "#7dd3fc";
-    }
+        console.log("Feedback saved successfully!", newFeedback);
 
-    try {
-      const response = await fetch(feedbackForm.action, {
-        method: "POST",
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-      });
-
-      if (response.ok) {
         if (feedbackResponse) {
           feedbackResponse.textContent = "Thank you! Your feedback has been received.";
           feedbackResponse.style.color = "#4ade80"; // Success Green
         }
         feedbackForm.reset();
         updateRatingStatus();
-      } else {
-        throw new Error("Form submission failed");
+      } catch (err) {
+        console.error("Feedback submission error:", err);
+        if (feedbackResponse) {
+          feedbackResponse.textContent = "Oops! Something went wrong. Please try again.";
+          feedbackResponse.style.color = "#f87171"; // Error Red
+        }
+      } finally {
+        if (feedbackSubmitButton) feedbackSubmitButton.disabled = false;
       }
+    });
+  }
+}
 
-      localStorage.setItem(
-        "portfolioFeedbackDraft",
-        JSON.stringify({
-          name: name,
-          email,
-          rating,
-          message: (formData.get("message") || "").toString().trim(),
-          submittedAt: new Date().toISOString(),
-        }),
-      );
-    } catch (err) {
-      if (feedbackResponse) {
-        feedbackResponse.textContent = "Oops! Something went wrong. Please try again.";
-        feedbackResponse.style.color = "#f87171"; // Error Red
-      }
-    } finally {
-      if (feedbackSubmitButton) feedbackSubmitButton.disabled = false;
-    }
-  });
+// Initialize feedback form when DOM is ready
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initializeFeedbackForm);
+} else {
+  initializeFeedbackForm();
 }
