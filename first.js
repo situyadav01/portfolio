@@ -296,6 +296,9 @@ function initializeFeedbackForm() {
       }
 
       try {
+        // Wait for 1 second to simulate sending
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
         // Save feedback to localStorage only
         const allFeedback = JSON.parse(localStorage.getItem("portfolioFeedback") || "[]");
         const newFeedback = {
@@ -311,7 +314,7 @@ function initializeFeedbackForm() {
         console.log("Feedback saved successfully!", newFeedback);
 
         if (feedbackResponse) {
-          feedbackResponse.textContent = "Thank you! Your feedback has been received.";
+          feedbackResponse.textContent = "Thank you! Your feedback has been recorded successfully.";
           feedbackResponse.style.color = "#4ade80"; // Success Green
         }
         feedbackForm.reset();
