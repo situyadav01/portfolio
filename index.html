@@ -249,19 +249,75 @@
     <h2>
       <span class="heading-first">Proj</span><span class="heading-second">ects</span>
     </h2>
-    <div class="projects">
-      <div class="coming-soon">
-        <h3>Coming Soon</h3>
-        <div class="dots">
-          <span class="dot"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
+    <div class="projects-grid">
+      <!-- Project 1: StayFinder with Carousel -->
+      <article class="project-card">
+        <div class="project-image-wrapper">
+          <div class="carousel-container" data-carousel="stayfinder">
+            <img src="./istproject.png" alt="StayFinder - Home page" class="carousel-image carousel-active" />
+            <img src="./sec.png" alt="StayFinder - Listings" class="carousel-image" />
+            <img src="./3rd.png" alt="StayFinder - Property detail" class="carousel-image" />
+            <img src="./4th.png" alt="StayFinder - Booking" class="carousel-image" />
+            <div class="carousel-overlay"></div>
+          </div>
+          <div class="carousel-controls">
+            <div class="carousel-dots">
+              <button class="dot active" data-index="0" aria-label="Screenshot 1"></button>
+              <button class="dot" data-index="1" aria-label="Screenshot 2"></button>
+              <button class="dot" data-index="2" aria-label="Screenshot 3"></button>
+              <button class="dot" data-index="3" aria-label="Screenshot 4"></button>
+            </div>
+          </div>
         </div>
-        <p>
-          Exciting projects are on the way! Stay tuned for innovative web
-          solutions.
-        </p>
-      </div>
+
+        <div class="project-content">
+          <h3 class="project-title">StayFinder</h3>
+          <p class="project-subtitle">Airbnb-Inspired Property Rental Prototype</p>
+
+          <p class="project-description">
+            A full-stack property rental prototype built with authentication, CRUD listings, sessions, MongoDB, and production deployment.
+          </p>
+
+          <div class="project-tech-row">
+            Node.js • Express.js • MongoDB • EJS • JavaScript • Render
+          </div>
+
+          <div class="project-actions">
+            <a href="https://airbnb-prototype-vd8v.onrender.com" target="_blank" rel="noopener noreferrer" class="project-btn btn-small">
+              Live Demo
+            </a>
+            <a href="https://github.com/situyadav01/Airbnb-prototype" target="_blank" rel="noopener noreferrer" class="project-btn btn-small">
+              GitHub
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 2: Coming Soon -->
+      <article class="project-card coming-soon-card">
+        <div class="project-image-wrapper coming-soon-image">
+          <div class="coming-soon-placeholder">
+            <span class="coming-soon-emoji">🚀</span>
+          </div>
+        </div>
+
+        <div class="project-content">
+          <h3 class="project-title">Next Project</h3>
+          <p class="project-subtitle">Coming Soon</p>
+
+          <p class="project-description">
+            Something new is being built. Stay tuned for the next full-stack project showcase.
+          </p>
+
+          <div class="project-tech-row coming-soon-text">
+            More innovations on the way...
+          </div>
+
+          <div class="project-actions">
+            <span class="project-btn btn-small disabled">Coming Soon</span>
+          </div>
+        </div>
+      </article>
     </div>
   </section>
 

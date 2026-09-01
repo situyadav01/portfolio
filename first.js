@@ -98,10 +98,91 @@ if (welcomeButton) {
   });
 }
 
+// ===== PROJECT CAROUSEL FUNCTIONALITY =====
+class ProjectCarousel {
+  constructor(carouselElement) {
+    this.carousel = carouselElement;
+    this.images = carouselElement.querySelectorAll('.carousel-image');
+    this.dots = carouselElement.parentElement.querySelectorAll('.dot');
+    this.currentIndex = 0;
+    this.autoplayInterval = null;
+    this.autoplayDelay = 4500; // 4.5 seconds
+
+    if (this.images.length === 0) return;
+
+    this.init();
+  }
+
+  init() {
+    // Set up dot click handlers
+    this.dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => this.goToSlide(index));
+    });
+
+    // Set up pause on hover
+    this.carousel.addEventListener('mouseenter', () => this.stopAutoplay());
+    this.carousel.addEventListener('mouseleave', () => this.startAutoplay());
+
+    // Start autoplay
+    this.startAutoplay();
+  }
+
+  goToSlide(index) {
+    // Remove active class from all images and dots
+    this.images.forEach(img => img.classList.remove('carousel-active'));
+    this.dots.forEach(dot => dot.classList.remove('active'));
+
+    // Add active class to current image and dot
+    this.currentIndex = index;
+    this.images[this.currentIndex].classList.add('carousel-active');
+    this.dots[this.currentIndex].classList.add('active');
+  }
+
+  nextSlide() {
+    this.currentIndex = (this.currentIndex + 1) % this.images.length;
+    this.goToSlide(this.currentIndex);
+  }
+
+  startAutoplay() {
+    if (this.autoplayInterval) return;
+    this.autoplayInterval = setInterval(() => this.nextSlide(), this.autoplayDelay);
+  }
+
+  stopAutoplay() {
+    if (this.autoplayInterval) {
+      clearInterval(this.autoplayInterval);
+      this.autoplayInterval = null;
+    }
+  }
+}
+
+// Initialize all carousels on the page
+document.addEventListener('DOMContentLoaded', () => {
+  const carouselContainers = document.querySelectorAll('.carousel-container');
+  carouselContainers.forEach(container => {
+    new ProjectCarousel(container);
+  });
+});
+
+// Also run if DOM is already loaded
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    const carouselContainers = document.querySelectorAll('.carousel-container');
+    carouselContainers.forEach(container => {
+      new ProjectCarousel(container);
+    });
+  });
+} else {
+  const carouselContainers = document.querySelectorAll('.carousel-container');
+  carouselContainers.forEach(container => {
+    new ProjectCarousel(container);
+  });
+}
+
 // ===== SCROLL ANIMATIONS =====
 function animateOnScroll() {
   const elements = document.querySelectorAll(
-    ".about-container, .skills, .projects, .coming-soon, footer"
+    ".about-container, .skills, .projects-grid, .project-card, footer"
   );
 
   const observerOptions = {
