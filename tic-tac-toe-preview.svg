@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1012" height="882" viewBox="0 0 1012 882" role="img" aria-labelledby="title desc">
+  <title id="title">Tic-Tac-Toe game interface</title>
+  <desc id="desc">Pink Tic-Tac-Toe game screen with game mode buttons, an empty board, and a reset button.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fee0e6"/><stop offset="1" stop-color="#fbd3e3"/></linearGradient>
+    <linearGradient id="button" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dc3b68"/><stop offset="1" stop-color="#bf234d"/></linearGradient>
+    <linearGradient id="button2" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff7591"/><stop offset="1" stop-color="#f85478"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="12" stdDeviation="13" flood-color="#b93967" flood-opacity=".18"/></filter>
+  </defs>
+  <rect width="1012" height="882" fill="url(#bg)"/>
+  <text x="506" y="80" text-anchor="middle" fill="#681f31" font-family="Arial, sans-serif" font-size="63" font-weight="800" letter-spacing="2">TIC-TAC-TOE</text>
+  <g filter="url(#shadow)" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#fff" text-anchor="middle">
+    <rect x="281" y="119" width="188" height="52" rx="28" fill="url(#button)"/><text x="375" y="151">Player vs Player</text>
+    <rect x="487" y="119" width="219" height="52" rx="28" fill="url(#button2)"/><text x="596.5" y="151">Player vs Computer</text>
+  </g>
+  <text x="506" y="214" text-anchor="middle" fill="#681f31" font-family="Arial, sans-serif" font-size="23" font-weight="700">Player X turn</text>
+  <g filter="url(#shadow)"><rect x="246" y="240" width="496" height="495" rx="35" fill="#fce8ef" stroke="#fff5f8" stroke-width="2"/>
+    <g fill="#fffafb">
+      <rect x="260" y="254" width="146" height="146" rx="20"/><rect x="421" y="254" width="145" height="146" rx="20"/><rect x="581" y="254" width="146" height="146" rx="20"/>
+      <rect x="260" y="414" width="146" height="146" rx="20"/><rect x="421" y="414" width="145" height="146" rx="20"/><rect x="581" y="414" width="146" height="146" rx="20"/>
+      <rect x="260" y="575" width="146" height="145" rx="20"/><rect x="421" y="575" width="145" height="145" rx="20"/><rect x="581" y="575" width="146" height="145" rx="20"/>
+    </g>
+  </g>
+  <g filter="url(#shadow)" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#fff" text-anchor="middle"><rect x="417" y="762" width="152" height="52" rx="28" fill="url(#button2)"/><text x="493" y="794">Reset game</text></g>
+  <text x="506" y="880" text-anchor="middle" fill="#681f31" font-family="Arial, sans-serif" font-size="16" font-weight="700" letter-spacing="1">DESIGNED &amp; DEVELOPED BY SITU</text>
+</svg>
